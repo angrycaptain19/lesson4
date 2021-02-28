@@ -47,24 +47,25 @@ for i in p.iterdir():
                 list_formatted[key].append(i.name)
                 list_formatted["exists_formats"].append(
                     f"{i.suffix[1:].upper()}")
-        for values in list_formatted.values():
-            for val in values:
-                if i.suffix[1:].upper() != val:
-                    name_list.append(i.name)
-                    suffix_list.append(i.suffix[1:].upper())
+        name_list.append(i.name)
+        suffix_list.append(i.suffix[1:].upper())
 
-print(list_formatted.values())
-print(name_list)
-print(suffix_list)
+# I need add list to find name of files in dir wich unidentified.
+# Because anoter method didn't work.
+tmp = []
+for value in list_formatted.values():
+    if value != []:
+        tmp = tmp[:] + value[:]
 
+while name_list:
+    name = name_list.pop()
+    if name not in tmp:
+        list_formatted["unidentified"].append(name)
 
-# for i in p.iterdir():
-#     if i.suffix:
-#         for value in list_formatted["exists_formats"]:
-#             if i.suffix[1:].upper() != value:
-#                 list_formatted["unidentified"].append(i.name)
-#                 list_formatted["unexists_formats"].append(
-#                     f"{i.suffix[1:].upper()}")
+for value in suffix_list:
+    if value not in list_formatted["exists_formats"]:
+        list_formatted["unexists_formats"].append(value)
+
 
 # p = Path(folder_path)
 
@@ -114,6 +115,5 @@ for key, values in list_formatted.items():
             print(f" {value}", end='')
         print()
 print()
-print(list_formatted['unidentified'])
+
 print("Thank you for take our service!")
-print(list_formatted)
