@@ -49,16 +49,15 @@ def sort(folder_path=Path()):
     tmp = []
     p = Path(folder_path)
     for i in p.iterdir():
-        if i.is_file():
-            if i.suffix:
-                for key, values in formats.items():
-                    if i.suffix[1:].upper() in values:
-                        # if key in list_formatted.keys():
-                        list_formatted[key].append(i.name)
-                        list_formatted["exists_formats"].append(
-                            f"{i.suffix[1:].upper()}")
-                name_list.append(i.name)
-                suffix_list.append(i.suffix[1:].upper())
+        if i.is_file() and i.suffix:
+            for key, values in formats.items():
+                if i.suffix[1:].upper() in values:
+                    # if key in list_formatted.keys():
+                    list_formatted[key].append(i.name)
+                    list_formatted["exists_formats"].append(
+                        f"{i.suffix[1:].upper()}")
+            name_list.append(i.name)
+            suffix_list.append(i.suffix[1:].upper())
         # I need add list to find name of files in dir wich unidentified.
         # Because anoter method didn't work.
         for value in list_formatted.values():
